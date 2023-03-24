@@ -7,7 +7,7 @@ import React, {
   useRef,
 } from "react";
 import { getRepo } from "../services/searchRepo";
-// import styles from "./index.less";
+import styles from "./index.module.css";
 
 interface Repository {
   id: number;
@@ -77,18 +77,21 @@ const SearchPage: FC = memo(() => {
 
   return (
     <div
-    //   className={styles.dropWrapper}
-    // style={{ padding: "40px" }}
+      className={styles.container}
+      // style={{ padding: "40px" }}
     >
       <input
         // style={{ margin: "20px" }}
+        className={styles.searchInput}
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
-      <button onClick={handleSearch}>Search</button>
+      <button onClick={handleSearch} className={styles.searchButton}>
+        Search
+      </button>
 
-      <table>
+      <table className={styles.table}>
         <thead>
           <tr>
             <th>Index</th>
@@ -110,7 +113,7 @@ const SearchPage: FC = memo(() => {
           ))}
         </tbody>
       </table>
-      <div>
+      <div className={styles.pagination}>
         {pageNumbers.map((pageNumber) => (
           <button
             key={pageNumber}
