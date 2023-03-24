@@ -41,7 +41,18 @@ tr:nth-child(even) {
 }
 
 .pagination {
-  display: flex;
-  justify-content: center;
   margin-top: 20px;
+}
+
+button {
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  /* 
+  &.active {
+    background-color: red;
+  } */
 }

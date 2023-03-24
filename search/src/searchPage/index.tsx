@@ -1,12 +1,6 @@
-import React, {
-  memo,
-  FC,
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-} from "react";
+import React, { memo, FC, useState, useCallback, useRef } from "react";
 import { getRepo } from "../services/searchRepo";
+// import styles from "./index.module.less";
 import styles from "./index.module.css";
 
 interface Repository {
@@ -76,12 +70,8 @@ const SearchPage: FC = memo(() => {
   //   };
 
   return (
-    <div
-      className={styles.container}
-      // style={{ padding: "40px" }}
-    >
+    <div className={styles.container}>
       <input
-        // style={{ margin: "20px" }}
         className={styles.searchInput}
         type="text"
         value={searchQuery}
