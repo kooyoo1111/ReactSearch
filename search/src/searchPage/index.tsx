@@ -1,5 +1,6 @@
 import React, { memo, FC, useState, useCallback, useRef } from "react";
 import { getRepo } from "../services/searchRepo";
+import Pagination from "../components/Pagination";
 // import styles from "./index.module.less";
 import styles from "./index.module.css";
 
@@ -14,7 +15,7 @@ const SearchPage: FC = memo(() => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<Repository[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [resultsPerPage, setResultsPerPage] = useState(10);
+  const [resultsPerPage] = useState(10);
 
   //   const handleSearch = async () => {
   //     const DEBOUNCE_TIME = 300; // in milliseconds
@@ -25,6 +26,7 @@ const SearchPage: FC = memo(() => {
   //       setSearchResults(searchResult);
   //     }, DEBOUNCE_TIME);
   //   };
+
   const lastSearchTimeRef = useRef(0);
   const THROTTLE_TIME = 5000; // limit the function to be called at most once every 1000 milliseconds
 
@@ -39,12 +41,7 @@ const SearchPage: FC = memo(() => {
     }
   }, [searchQuery]);
 
-  const handlePageChange = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    pageNumber: number
-  ) => {
-    event.preventDefault();
-
+  const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
@@ -63,11 +60,6 @@ const SearchPage: FC = memo(() => {
   ) {
     pageNumbers.push(i);
   }
-
-  //   const handleSearch = async () => {
-  //     const searchResult = await getRepo(searchQuery);
-  //     setSearchResults(searchResult);
-  //   };
 
   return (
     <div className={styles.container}>
@@ -103,16 +95,11 @@ const SearchPage: FC = memo(() => {
           ))}
         </tbody>
       </table>
-      <div className={styles.pagination}>
-        {pageNumbers.map((pageNumber) => (
-          <button
-            key={pageNumber}
-            onClick={(event) => handlePageChange(event, pageNumber)}
-          >
-            {pageNumber}
-          </button>
-        ))}
-      </div>
+      <Pagination
+        totalPages={Math.ceil(searchResults.length / resultsPerPage)}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 });
